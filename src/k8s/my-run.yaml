@@ -1,0 +1,35 @@
+kubectl delete \
+    -f namespace.yaml \
+    -f secrets.yaml \
+    -f zipkin.yaml \
+    -f redis.yaml \
+    -f rabbitmq.yaml \
+    -f mosquitto.yaml \
+    -f maildev.yaml \
+    -f dapr-config.yaml \
+    -f pubsub-rabbitmq.yaml \
+    -f state-redis.yaml \
+    -f email.yaml \
+    -f entrycam.yaml \
+    -f exitcam.yaml \
+    -f vehicleregistrationservice.yaml \
+    -f finecollectionservice.yaml \
+    -f trafficcontrolservice.yaml \
+    -f simulation.yaml
+
+    dapr init -k --runtime-version 1.8.0
+
+docker tag dapr-trafficcontrol/mosquitto:1.0 softstone1/mosquitto:1.0
+docker tag dapr-trafficcontrol/trafficcontrolservice:1.0 softstone1/trafficcontrolservice:1.0
+docker tag dapr-trafficcontrol/finecollectionservice:1.0 softstone1/finecollectionservice:1.0
+docker tag dapr-trafficcontrol/vehicleregistrationservice:1.0 softstone1/vehicleregistrationservice:1.0
+docker tag dapr-trafficcontrol/simulation:1.0 softstone1/simulation:1.0
+
+
+docker push softstone1/mosquitto:1.0
+docker push softstone1/trafficcontrolservice:1.0
+docker push softstone1/finecollectionservice:1.0
+docker push softstone1/vehicleregistrationservice:1.0
+docker push softstone1/simulation:1.0
+
+docker build -t ghcr.io/softstone1/mosquitto:1.0 ./mosquitto
